@@ -157,7 +157,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="GoLang之切片"><a href="#GoLang之切片" class="headerlink" title="GoLang之切片"></a>GoLang之切片</h2><h2 id="一、数组的缺陷"><a href="#一、数组的缺陷" class="headerlink" title="一、数组的缺陷"></a>一、数组的缺陷</h2><p>我们在不使用切片的时候申请数组的时候，一般只能有一下的这些方式：</p>
+        <h1 id="GoLang之切片"><a href="#GoLang之切片" class="headerlink" title="GoLang之切片"></a>GoLang之切片</h1><h2 id="一、数组的缺陷"><a href="#一、数组的缺陷" class="headerlink" title="一、数组的缺陷"></a>一、数组的缺陷</h2><p>我们在不使用切片的时候申请数组的时候，一般只能有一下的这些方式：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr := [<span class="number">4</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;</span><br><span class="line">arr2 := [<span class="number">4</span>]<span class="keyword">int</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
 
 <p>从上面的代码可以看出使用数组的时候我们需要在定义的时候先将数组的大小进行确定，而且这一确定之后该数组的大小便无法改变了，这也就带来了数组的最大的一个问题就是容量无法扩容。当我们在使用数组的时候往往并不能知道这个数组最终会用到多大的空间，空间定义小了则会造成不够用，定义得过分大了则会造成空间的浪费。因此为了解决数组的这一个固有的问题，我们便引入了切片这一个类型。</p>
@@ -257,7 +257,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="SpringBoot中Redis缓存的一些简单的用法"><a href="#SpringBoot中Redis缓存的一些简单的用法" class="headerlink" title="SpringBoot中Redis缓存的一些简单的用法"></a>SpringBoot中Redis缓存的一些简单的用法</h2><h3 id="1-导入Redis的依赖"><a href="#1-导入Redis的依赖" class="headerlink" title="1.导入Redis的依赖"></a>1.导入Redis的依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>  </span><br></pre></td></tr></table></figure>
+        <h1 id="SpringBoot中Redis缓存的一些简单的用法"><a href="#SpringBoot中Redis缓存的一些简单的用法" class="headerlink" title="SpringBoot中Redis缓存的一些简单的用法"></a>SpringBoot中Redis缓存的一些简单的用法</h1><h3 id="1-导入Redis的依赖"><a href="#1-导入Redis的依赖" class="headerlink" title="1.导入Redis的依赖"></a>1.导入Redis的依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>  </span><br></pre></td></tr></table></figure>
 
 
 
@@ -341,7 +341,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="一、Controller层方法的几种返回值类型"><a href="#一、Controller层方法的几种返回值类型" class="headerlink" title="一、Controller层方法的几种返回值类型"></a>一、Controller层方法的几种返回值类型</h3><p>1.String类型</p>
+        <h1 id="Controller层方法的几种返回值"><a href="#Controller层方法的几种返回值" class="headerlink" title="Controller层方法的几种返回值"></a>Controller层方法的几种返回值</h1><h3 id="一、Controller层方法的几种返回值类型"><a href="#一、Controller层方法的几种返回值类型" class="headerlink" title="一、Controller层方法的几种返回值类型"></a>一、Controller层方法的几种返回值类型</h3><p>1.String类型</p>
 <p>2.ModelAndView类型</p>
 <p>3.自定义Bean类型</p>
 <hr>
