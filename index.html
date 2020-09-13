@@ -152,6 +152,106 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-GoLang之切片" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="GoLang之切片"><a href="#GoLang之切片" class="headerlink" title="GoLang之切片"></a>GoLang之切片</h2><h2 id="一、数组的缺陷"><a href="#一、数组的缺陷" class="headerlink" title="一、数组的缺陷"></a>一、数组的缺陷</h2><p>我们在不使用切片的时候申请数组的时候，一般只能有一下的这些方式：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr := [<span class="number">4</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>&#125;</span><br><span class="line">arr2 := [<span class="number">4</span>]<span class="keyword">int</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从上面的代码可以看出使用数组的时候我们需要在定义的时候先将数组的大小进行确定，而且这一确定之后该数组的大小便无法改变了，这也就带来了数组的最大的一个问题就是容量无法扩容。当我们在使用数组的时候往往并不能知道这个数组最终会用到多大的空间，空间定义小了则会造成不够用，定义得过分大了则会造成空间的浪费。因此为了解决数组的这一个固有的问题，我们便引入了切片这一个类型。</p>
+<h2 id="二、切片的定义和几个常用的方法"><a href="#二、切片的定义和几个常用的方法" class="headerlink" title="二、切片的定义和几个常用的方法"></a>二、切片的定义和几个常用的方法</h2><h3 id="append方法："><a href="#append方法：" class="headerlink" title="append方法："></a>append方法：</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.在原有的数组上使用切片</span></span><br><span class="line">arr := [<span class="number">4</span>]<span class="keyword">int</span>&#123;<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>,<span class="number">44</span>&#125;</span><br><span class="line">sli1 := arr[<span class="number">1</span>:<span class="number">3</span>]</span><br><span class="line">fmt.Println(sli1)</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.使用make函数进行定义</span></span><br><span class="line">sli2 := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">3</span>,<span class="number">6</span>) <span class="comment">// 第二个参数定义的是切片的len，第三个参数定义的是切片的cap，第三个参数可以省略，默认和len保持一致</span></span><br><span class="line">fmt.Println(sli2)</span><br></pre></td></tr></table></figure>
+
+<p>输出的结果：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">22</span> <span class="number">33</span>]</span><br><span class="line">[<span class="number">0</span> <span class="number">0</span> <span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<p>我们要如何发挥切片长度可以自由扩容这一特性呢？就要使用切片的append方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">arr := [<span class="number">4</span>]<span class="keyword">int</span>&#123;<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>,<span class="number">44</span>&#125;</span><br><span class="line">sli1 := arr[<span class="number">1</span>:<span class="number">3</span>]</span><br><span class="line">fmt.Println(sli1)</span><br><span class="line">sli1 = <span class="built_in">append</span>(sli1, <span class="number">55</span>)</span><br><span class="line">fmt.Println(sli1)</span><br><span class="line">sli1 = <span class="built_in">append</span>(sli1, <span class="number">66</span>)</span><br><span class="line">fmt.Println(sli1)</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">22</span> <span class="number">33</span>]</span><br><span class="line">[<span class="number">22</span> <span class="number">33</span> <span class="number">55</span>]</span><br><span class="line">[<span class="number">22</span> <span class="number">33</span> <span class="number">55</span> <span class="number">66</span>]</span><br></pre></td></tr></table></figure>
+
+<p>可以看到我们使用append方法对切片进行元素的添加之后，不受切片原有的容量和长度的影响可以自由的进行添加。</p>
+<h3 id="copy方法："><a href="#copy方法：" class="headerlink" title="copy方法："></a>copy方法：</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">arr := [<span class="number">4</span>]<span class="keyword">int</span>&#123;<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>,<span class="number">44</span>&#125;</span><br><span class="line">sli1 := arr[<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line">sli2 := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="built_in">len</span>(sli1))</span><br><span class="line"><span class="built_in">copy</span>(sli2, sli1) <span class="comment">//两个参数，第一个参数是目标切片，第二个参数是原切片</span></span><br><span class="line">sli3 := sli1</span><br><span class="line">fmt.Println(sli1,sli2,sli3) <span class="comment">//[22 33 44] [22 33 44] [22 33 44]</span></span><br><span class="line">sli1[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">sli3[<span class="number">1</span>] = <span class="number">2</span></span><br><span class="line">fmt.Println(sli1,sli2,sli3) <span class="comment">//[1 2 44] [22 33 44] [1 2 44]</span></span><br></pre></td></tr></table></figure>
+
+<p> 从上面的代码可以看出，在使用copy函数和直接赋值两种对切片的操作中，看结果都是讲原来的切片的内容复制到一个新的切片之中，但是实际实现还是有区别的。</p>
+<p>copy函数是值复制，可以理解为只是单纯的将内容从一个切片搬运到另外一个切片当中，两个切片之间没有其他的任何关系，改变其中一个切片的内容也不会对另外一个切片的内容造成影响。</p>
+<p>而赋值的操作实质上是指针的复制，即创建一个新的指针指向同一个切片，相应的，如果改变某个指针指向的切片的值，另一个指针指向的内容也会相应的随之改变。</p>
+<h2 id="三、切片中的两个属性"><a href="#三、切片中的两个属性" class="headerlink" title="三、切片中的两个属性"></a>三、切片中的两个属性</h2><h3 id="len属性"><a href="#len属性" class="headerlink" title="len属性"></a>len属性</h3><p>len属性的意义就是当前切片的长度，可以简单的理解为当前切片中含有的元素的数量：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">arr := [<span class="number">4</span>]<span class="keyword">int</span>&#123;<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>,<span class="number">44</span>&#125;</span><br><span class="line">sli1 := arr[<span class="number">1</span>:<span class="number">3</span>]</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(sli1))</span><br><span class="line">sli1 = <span class="built_in">append</span>(sli1, <span class="number">55</span>)</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(sli1))</span><br><span class="line">sli1 = <span class="built_in">append</span>(sli1, <span class="number">66</span>)</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(sli1))</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>可以简单的理解为打印出来的切片中函数结果元素，他的len值就是多少。</p>
+<h3 id="cap属性"><a href="#cap属性" class="headerlink" title="cap属性"></a>cap属性</h3><p>我们知道，切片的底层实际是数组，即从一个已有的数组中切一下来的一部分:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">arr := [<span class="number">4</span>]<span class="keyword">int</span>&#123;<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>,<span class="number">44</span>&#125;</span><br><span class="line">sli1 := arr[<span class="number">1</span>:<span class="number">3</span>]</span><br><span class="line">fmt.Println(<span class="string">&quot;原有的数组：&quot;</span>,arr)</span><br><span class="line">fmt.Println(<span class="string">&quot;切片：&quot;</span>,sli1)</span><br><span class="line">fmt.Println(<span class="string">&quot;当前切片的len值：&quot;</span>, <span class="built_in">len</span>(sli1))</span><br><span class="line">fmt.Println(<span class="string">&quot;当前切片的cap值：&quot;</span>, <span class="built_in">cap</span>(sli1))</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">原有的数组： [<span class="number">11</span> <span class="number">22</span> <span class="number">33</span> <span class="number">44</span>]</span><br><span class="line">切片： [<span class="number">22</span> <span class="number">33</span>]</span><br><span class="line">当前切片的<span class="built_in">len</span>值： <span class="number">2</span></span><br><span class="line">当前切片的<span class="built_in">cap</span>值： <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>显而易见，当前的切片打印出来有两个元素，他的len值当然是2，但是为什么cap值是3呢？</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">arr := [<span class="number">4</span>]<span class="keyword">int</span>&#123;<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>,<span class="number">44</span>&#125;</span><br><span class="line">sli1 := arr[<span class="number">1</span>:<span class="number">2</span>]</span><br><span class="line">fmt.Println(<span class="string">&quot;当前的切片&quot;</span>,sli1)  <span class="comment">//当前的切片 [22]</span></span><br><span class="line">fmt.Println(<span class="string">&quot;当前切片的len值：&quot;</span>, <span class="built_in">len</span>(sli1)) <span class="comment">//当前切片的len值： 1</span></span><br><span class="line">fmt.Println(<span class="string">&quot;当前切片的cap值：&quot;</span>, <span class="built_in">cap</span>(sli1)) <span class="comment">//当前切片的cap值： 3</span></span><br><span class="line"></span><br><span class="line">sli2 := arr[<span class="number">1</span>:<span class="number">3</span>]</span><br><span class="line">fmt.Println(<span class="string">&quot;当前的切片&quot;</span>,sli2) <span class="comment">//当前的切片 [22 33]</span></span><br><span class="line">fmt.Println(<span class="string">&quot;当前切片的len值：&quot;</span>, <span class="built_in">len</span>(sli2)) <span class="comment">//当前切片的len值： 2</span></span><br><span class="line">fmt.Println(<span class="string">&quot;当前切片的cap值：&quot;</span>, <span class="built_in">cap</span>(sli2)) <span class="comment">//当前切片的cap值： 3</span></span><br><span class="line"></span><br><span class="line">sli3 := arr[<span class="number">2</span>:<span class="number">3</span>]</span><br><span class="line">fmt.Println(<span class="string">&quot;当前的切片&quot;</span>,sli3) <span class="comment">//当前的切片 [33]</span></span><br><span class="line">fmt.Println(<span class="string">&quot;当前切片的len值：&quot;</span>, <span class="built_in">len</span>(sli3)) <span class="comment">//当前切片的len值： 1</span></span><br><span class="line">fmt.Println(<span class="string">&quot;当前切片的cap值：&quot;</span>, <span class="built_in">cap</span>(sli3)) <span class="comment">//当前切片的cap值： 2</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>通过观察上面几种情况的cap值，我们会发现cap值与切片的底层数组（arr）有关。</p>
+<p>总结成一句话就是，当前切片的cap值就是切片切的底层数组的第一个元素到数组的最后一个元素的元素的数量。</p>
+<p>例如上面的sli1，切片的开头就是arr[1]，即元素22，那么他的cap值就是3（22，33，44）</p>
+<p>例如上面的sli3，切片的开头就是arr[2]，即元素33，那么他的cap值就是2（33，44）</p>
+<p>即cap的取值只看切片切的第一个元素，，从第一个元素数到原有数组的最后一个元素的数量就是cap的值。</p>
+<p>那么接下来就是在使用append方法，会对一个切片的len和cap值产生怎么样的印象。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">arr := [<span class="number">4</span>]<span class="keyword">int</span>&#123;<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>,<span class="number">44</span>&#125;</span><br><span class="line">sli1 := arr[<span class="number">1</span>:<span class="number">2</span>]</span><br><span class="line">fmt.Println(sli1) <span class="comment">//[22]</span></span><br><span class="line">fmt.Println(<span class="string">&quot;len值是：&quot;</span>, <span class="built_in">len</span>(sli1)) <span class="comment">//len值是： 1</span></span><br><span class="line">fmt.Println(<span class="string">&quot;cap值是：&quot;</span>, <span class="built_in">cap</span>(sli1)) <span class="comment">//cap值是： 3</span></span><br><span class="line">sli1 = <span class="built_in">append</span>(sli1, <span class="number">55</span>)</span><br><span class="line">fmt.Println(sli1) <span class="comment">//[22 55]</span></span><br><span class="line">fmt.Println(<span class="string">&quot;len值是：&quot;</span>, <span class="built_in">len</span>(sli1)) <span class="comment">//len值是： 2</span></span><br><span class="line">fmt.Println(<span class="string">&quot;cap值是：&quot;</span>, <span class="built_in">cap</span>(sli1)) <span class="comment">//cap值是： 3</span></span><br><span class="line">sli1 = <span class="built_in">append</span>(sli1, <span class="number">66</span>)</span><br><span class="line">fmt.Println(sli1) <span class="comment">//[22 55 66]</span></span><br><span class="line">fmt.Println(<span class="string">&quot;len值是：&quot;</span>, <span class="built_in">len</span>(sli1)) <span class="comment">//len值是： 3</span></span><br><span class="line">fmt.Println(<span class="string">&quot;cap值是：&quot;</span>, <span class="built_in">cap</span>(sli1)) <span class="comment">//cap值是： 3</span></span><br><span class="line">sli1 = <span class="built_in">append</span>(sli1, <span class="number">77</span>)</span><br><span class="line">fmt.Println(sli1) <span class="comment">//[22 55 66 77]</span></span><br><span class="line">fmt.Println(<span class="string">&quot;len值是：&quot;</span>, <span class="built_in">len</span>(sli1)) <span class="comment">//len值是： 4</span></span><br><span class="line">fmt.Println(<span class="string">&quot;cap值是：&quot;</span>, <span class="built_in">cap</span>(sli1)) <span class="comment">//cap值是： 6</span></span><br></pre></td></tr></table></figure>
+
+<p>从上面的输出结果可以看出，在当前的len值小于cap值的情况下新增元素，只会增加len值，cap值不会改变。而当增加过后len值大于cap值，cap值就会变为之前cap值的两倍。</p>
+<p>总结的更加通俗则是：</p>
+<p>1.首先判断，如果新申请的容量大于两倍的旧的容量，最终容量就是新申请的容量</p>
+<p>2.否则判断，如果旧的切片容量小于1024，则最终容量就是就容量的2倍</p>
+<p>3.否则判断，如果旧的切片的容量大于1024，则最终容量从旧容量开始循环增加原来的1/4，直到最终容量大于新申请的容量</p>
+<p>4.如果最终容量计算值溢出，则最终容量就是新申请的容量</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/13/GoLang%E4%B9%8B%E5%88%87%E7%89%87/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-SpringBoot中对Redis的一些简单操作的实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
